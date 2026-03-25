@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const CourseModel = require("../models/CourseModel");
  const transporter  = require("../cnfig/mailer");
+const { sendOTPEmail } = require("../cnfig/resend");
 
 
 const signUp = async (req, res) => {
@@ -63,9 +64,9 @@ res.cookie("token", token, {
 });
 
 
+await sendOTPEmail(email, Otp)
 
 
-    
   
 
     return res.status(201).json({
