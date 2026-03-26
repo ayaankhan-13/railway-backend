@@ -66,6 +66,13 @@ res.cookie("token", token, {
 
 await sendOTPEmail(email, Otp)
 
+if(!sendOTPEmail){
+  return res.status(500).json({
+    isSuccessful: false,
+    message: "Failed to send OTP email"
+  })
+}
+
 
   
 
