@@ -83,7 +83,7 @@ console.log("emailOptions:" , emailOptions)
       isSuccessful: true,
       message: "Successfully Registered",
      userId: user._id,
-     role: user.role
+     role: user.role,
   
      
       
