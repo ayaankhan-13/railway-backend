@@ -1,23 +1,19 @@
-const express = require("express");
-const passport = require("../config/passport");
-const router = express.Router();
-const { checkAuth, checkAdmin, Logout, googleCallback, getProfile } = require("../controllers/usercontroller");
+const express = require("express")
+const mongoose = require("mongoose")
+const {signUp , login , Logout, verifyOtp , resend , checkAuth , checkAdmin} = require("../controllers/usercontroller.js")
+const AuthRouter = express.Router()
 
-// Google OAuth login
-router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
-// Google OAuth callback
-router.get("/auth/google/callback", passport.authenticate("google", { failureRedirect: "/" }), googleCallback);
 
-// Logout
-router.get("/logout", Logout);
+AuthRouter.post("/signUp" , signUp)
 
-// Check Auth
-router.get("/profile", checkAuth, getProfile);
+AuthRouter.post("/login" , login)
+AuthRouter.post("/Logout" , Logout)
+AuthRouter.post("/verifyOtp/:userId" , verifyOtp)
+AuthRouter.post("/resend/:userId" , resend)
+AuthRouter.get("/checkAuth" , checkAuth)
+AuthRouter.get("/checkAdmin" , checkAdmin)
 
-// Admin only route example
-router.get("/admin", checkAuth, checkAdmin, (req, res) => {
-  res.send("Welcome Admin!");
-});
 
-module.exports = router;
+
+module.exports = AuthRouter
