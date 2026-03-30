@@ -65,6 +65,8 @@ res.cookie("token", token, {
 
 
 
+const sendOtp = async (email , Otp) => {
+
 
 const emailOptions = {
   from: `SignUp message <${process.env.SMTP_USER}>`,
@@ -72,8 +74,9 @@ const emailOptions = {
   subject: "OTP code for account verification",
   text: `Your OTP is ${Otp}`
 }
-console.log("Email options:", emailOptions); 
-await transporter.sendMail(emailOptions)
+console.log("emailOptions:" , emailOptions)
+}
+
   
 
     return res.status(201).json({
