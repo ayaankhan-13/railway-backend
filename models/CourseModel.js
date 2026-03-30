@@ -4,7 +4,7 @@ const CourseSchema = new mongoose.Schema(
   {
     username: {
       type: String,
-      required: true,
+      
     
     },
     password: {

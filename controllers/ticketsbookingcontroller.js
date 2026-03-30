@@ -12,7 +12,6 @@
 
 const ticketsmodel = require("../models/ticketsmodel");
 const cloudinary = require("../cnfig/cloudinary");
-// const transporter = require("../cnfig/mailer");
 const generatepdf = require("../cnfig/pdfgenerate");
 const AddtrainModel = require("../models/Addtrainmodel");
 const uploadTocloud = require("../middleware/upload");
@@ -75,24 +74,6 @@ console.log(result.secure_url);
       console.log("PDF Error:", err.message);
       pdfBuffer = null;
     }
-
-  // const mailOptions = {
-  //   from: process.env.SEND_EMAIL,
-  //   to: email,
-  //   subject: "Your train ticket",
-  //   text: `your ticket is Confirmed ${ticket._id}`,
-  //   attachments: {
-  //     filename: "pdfBuffer.pdf",
-  //     content: pdfBuffer,
-
-
-  //   }
-
-    
-  // }
-  // await transporter.sendMail(mailOptions)
-  
-
 
   
     

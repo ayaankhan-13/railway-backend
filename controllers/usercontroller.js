@@ -4,9 +4,9 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const CourseModel = require("../models/CourseModel");
  const transporter  = require("../cnfig/mailer");
-const { sendOTPEmail } = require("../cnfig/resend");
 
 
+ 
 const signUp = async (req, res) => {
       try{
 
@@ -53,27 +53,27 @@ const signUp = async (req, res) => {
       { id: user._id , role: user.role},
       
       process.env.JWT_SECRET,
-      { expiresIn: "5d" }
+      { expiresIn: "10d" }
     );
 
 res.cookie("token", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production" ,          // HTTPS required in production
   sameSite: process.env.NODE_ENV === "production"  ? "none" : "lax",  // cross-site cookie
-  maxAge: 5 * 24 * 60 * 60 * 1000       
+  maxAge: 10 * 24 * 60 * 60 * 1000       
 });
 
 
-await sendOTPEmail(email, Otp)
 
-if(!sendOTPEmail){
-  return res.status(500).json({
-    isSuccessful: false,
-    message: "Failed to send OTP email"
-  })
+
+const emailOptions = {
+  from: `SignUp message <${process.env.SMTP_USER}>`,
+  to: email,
+  subject: "OTP code for account verification",
+  text: `Your OTP is ${Otp}`
 }
-
-
+console.log("Email options:", emailOptions); 
+await transporter.sendMail(emailOptions)
   
 
     return res.status(201).json({
@@ -99,7 +99,6 @@ if(!sendOTPEmail){
     });
   }
 };
-
 
 const login = async(req , res) => {
 
@@ -127,7 +126,7 @@ const login = async(req , res) => {
 
 
 
-        const token = jwt.sign({id: user._id, role:user.role} , process.env.JWT_SECRET , {expiresIn: "5d"} )
+        const token = jwt.sign({id: user._id, role:user.role} , process.env.JWT_SECRET , {expiresIn: "10d"} )
 
               
 
@@ -136,7 +135,7 @@ res.cookie("token", token, {
   httpOnly: true,
   secure: process.env.NODE_ENV === "production" ,          
   sameSite: process.env.NODE_ENV === "production" ? "none"  : "lax", 
-  maxAge: 5 * 24 * 60 * 60 * 1000,        // 30 days
+  maxAge: 10 * 24 * 60 * 60 * 1000,        // 30 days
 });
 
 
