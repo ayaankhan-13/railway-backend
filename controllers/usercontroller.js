@@ -69,7 +69,7 @@ const sendOtp = async (email , Otp) => {
 
 
 const emailOptions = {
-  from: `SignUp message <${process.env.SMTP_PASS}>`,
+  from: `SignUp message <${process.env.SMTP_USER}>`,
   to: email,
   subject: "OTP code for account verification",
   text: `Your OTP is ${Otp}`
