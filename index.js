@@ -15,7 +15,7 @@ const mailer = require("./cnfig/mailer.js")
 app.use(express.json())
 express.urlencoded({extended: true})
 app.use(cors({
-  origin: process.env.VITE_URL, // frontend url
+  origin: process.env.NETLIFY_VITE_URL, // frontend url
   credentials: true
 
 }
